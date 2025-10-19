@@ -14,6 +14,9 @@ import {RouterLink} from '@angular/router';
 export class ListPage {
   todoService = inject(TodoService);
 
+  constructor() {
+    this.todoService.getAllTodos()
+  }
 
   delete(todo: TodoModel) {
     // Call todoService to delete this todo

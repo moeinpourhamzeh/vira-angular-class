@@ -11,7 +11,9 @@ export class TodoService {
 
 
   getAllTodos() {
-    this.http.get('http://localhost:1337/api/todos')
+    this.http.get('http://localhost:1337/api/todos').subscribe((x: any) => {
+      console.log(x['data']);
+    })
   }
 
 
