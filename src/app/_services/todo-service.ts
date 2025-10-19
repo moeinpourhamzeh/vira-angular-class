@@ -10,4 +10,9 @@ export class TodoService {
   add(todoForCreate: TodoModel) {
     this.todoList.push(todoForCreate);
   }
+
+  delete(todoForDelete: TodoModel) {
+    var index = this.todoList.indexOf(todoForDelete);
+    this.todoList.splice(index, 1);
+  }
 }

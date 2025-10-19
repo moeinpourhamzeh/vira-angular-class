@@ -16,6 +16,8 @@ export class ListPage {
 
 
   delete(todo: TodoModel) {
+    // Call todoService to delete this todo
+    this.todoService.delete(todo)
   }
 }
 
