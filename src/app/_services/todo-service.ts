@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {TodoModel} from '../_models/todo.model';
+import {TodoForCreateModel, TodoModel} from '../_models/todo.model';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
@@ -12,19 +12,25 @@ export class TodoService {
 
   getAllTodos() {
     this.http.get('http://localhost:1337/api/todos').subscribe((x: any) => {
-      console.log(x['data']);
+      this.todoList = x.data;
     })
   }
 
 
 
   // I will change them soon
-  add(todoForCreate: TodoModel) {
-    this.todoList.push(todoForCreate);
+  add(todoForCreate: TodoForCreateModel) {
+    this.http.post('http://localhost:1337/api/todos', {data: todoForCreate}).subscribe((createdTodo: any) => {
+      this.todoList.push(createdTodo);
+      console.log(createdTodo);
+    })
   }
 
   delete(todoForDelete: TodoModel) {
-    var index = this.todoList.indexOf(todoForDelete);
-    this.todoList.splice(index, 1);
+    this.http.delete('http://localhost:1337/api/todos/' + todoForDelete.documentId).subscribe((x: any) => {
+      var index = this.todoList.indexOf(todoForDelete);
+      this.todoList.splice(index, 1);
+    })
+
   }
 }
